@@ -1,4 +1,4 @@
-import {gql} from "apollo-client";
+import {gql} from "graphql-tag";
 
 const NEW_NOTE = gql`
 	mutation newNote($content: String!) {
