@@ -1,37 +1,34 @@
 <template>
 	<div>
+		<div v-if="$apollo.queries.noteFeed.loading">Loading...</div>
+		<p v-if="error">Error!</p>
 		<div v-if="noteFeed">
-			<div v-for="note in noteFeed.notes" :key="note.id">
-				<article :key="note.id">
-					<img :src="note.author.avatar" height="50px" />
-					{{ note.author.username }} {{ note.createdAt }}
-					{{ note.favoriteCount }}
-					<vue-markdown>{{ note.content }}</vue-markdown>
-				</article>
-			</div>
+			<NoteFeed :notes="noteFeed.notes"></NoteFeed>
 		</div>
 	</div>
 </template>
 
 <script>
-import Header from "../components/Header";
-import Navigation from "../components/Navigation";
-import Button from "../components/Button";
-import VueMarkdown from "vue-markdown";
 import {GET_NOTES} from "../gql/query";
+import NoteFeed from "../components/NoteFeed";
 
 export default {
 	name: "Home",
 	components: {
-		Header,
-		Navigation,
-		Button,
-		"vue-markdown": VueMarkdown,
+		NoteFeed,
+	},
+	data() {
+		return {
+			error: null,
+		};
 	},
 	apollo: {
 		noteFeed: {
 			query: GET_NOTES,
-			loadingKey: "loading...",
+			error(error) {
+				this.error = JSON.stringify(error.message);
+				console.error(error);
+			},
 		},
 	},
 };
