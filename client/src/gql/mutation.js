@@ -1,5 +1,11 @@
 import {gql} from "graphql-tag";
 
+const SIGNUP_USER = gql`
+	mutation signUp($email: String!, $username: String!, $password: String!) {
+		signUp(email: $email, username: $username, password: $password)
+	}
+`;
+
 const NEW_NOTE = gql`
 	mutation newNote($content: String!) {
 		newNote(content: $content) {
@@ -53,4 +59,4 @@ const TOGGLE_FAVORITE = gql`
 	}
 `;
 
-export {NEW_NOTE, EDIT_NOTE, DELETE_NOTE, TOGGLE_FAVORITE};
+export {SIGNUP_USER, NEW_NOTE, EDIT_NOTE, DELETE_NOTE, TOGGLE_FAVORITE};
