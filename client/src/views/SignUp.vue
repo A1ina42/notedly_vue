@@ -30,7 +30,7 @@
 					placeholder="Password"
 					v-model="password"
 				/>
-				<button type="submit">Submit</button>
+				<Button type="submit">Submit</Button>
 			</Form>
 		</Wrapper>
 	</div>
@@ -87,6 +87,10 @@ export default {
 				})
 				.then((res) => {
 					localStorage.setItem("token", res.data.signUp);
+					this.$apollo.provider.defaultClient.cache.writeData({
+						data: {isLoggedIn: true},
+					});
+					console.log(this.$apollo.provider.defaultClient);
 					this.$router.push("/");
 				})
 				.catch((err) => {

@@ -39,6 +39,13 @@ const apolloClient = new ApolloClient({
 	connectToDevTools: true,
 });
 
+const data = {
+	isLoggedIn: !!localStorage.getItem("token"),
+};
+
+cache.writeData({data});
+apolloClient.onResetStore(() => cache.writeData({data}));
+
 const apolloProvider = new VueApollo({
 	defaultClient: apolloClient,
 });

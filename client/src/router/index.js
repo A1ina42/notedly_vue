@@ -5,6 +5,7 @@ import Favorites from "../views/Favorites.vue";
 import MyNotes from "../views/MyNotes.vue";
 import NotePage from "../views/Note.vue";
 import SignUp from "../views/SignUp.vue";
+import SignIn from "../views/SignIn.vue";
 
 Vue.use(VueRouter);
 
@@ -41,6 +42,14 @@ const routes = [
 		component: SignUp,
 		meta: {
 			title: "Sign Up - Notedly",
+		},
+	},
+	{
+		path: "/signin",
+		name: "signin",
+		component: SignIn,
+		meta: {
+			title: "Sign In - Notedly",
 		},
 	},
 ];
