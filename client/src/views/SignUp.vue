@@ -90,7 +90,6 @@ export default {
 					this.$apollo.provider.defaultClient.cache.writeData({
 						data: {isLoggedIn: true},
 					});
-					console.log(this.$apollo.provider.defaultClient);
 					this.$router.push("/");
 				})
 				.catch((err) => {

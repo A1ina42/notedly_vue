@@ -2,7 +2,6 @@
 	<HeaderBar>
 		<img :src="logo" alt="Notedly Logo" height="40" />
 		<LogoText>Notedly</LogoText>
-		{{ isLoggedIn }}
 		<UserState>
 			<p v-if="isLoggedIn">
 				<ButtonAsLink @click="reset">Logout</ButtonAsLink>
@@ -71,18 +70,12 @@ export default {
 	methods: {
 		reset() {
 			localStorage.removeItem("token");
-			Object.values(this.$apollo.provider.clients).forEach((client) =>
-				client.cache.data.clear()
-			);
-			// this.$apollo.provider.defaultClient.cache.reset();
+			this.$apollo.provider.defaultClient.cache.reset();
 			this.$apollo.provider.defaultClient.cache.writeData({
 				data: {isLoggedIn: false},
 			});
 			console.log(this.$apollo.provider.defaultClient.cache);
-			// this.$router.push("/");
-			if (this.$route.name != "home") {
-				this.$router.push({name: "home"});
-			}
+			if (this.$route.name != "home") this.$router.push({name: "home"});
 		},
 	},
 };

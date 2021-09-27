@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div v-if="$apollo.queries.noteFeed.loading">Loading...</div>
+		<p v-if="$apollo.queries.noteFeed.loading">Loading...</p>
 		<p v-if="error">Error!</p>
 		<div v-if="noteFeed">
 			<NoteFeed :notes="noteFeed.notes"></NoteFeed>

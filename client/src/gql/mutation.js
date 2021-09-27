@@ -6,6 +6,12 @@ const SIGNUP_USER = gql`
 	}
 `;
 
+const SIGNIN_USER = gql`
+	mutation signIn($email: String, $password: String!) {
+		signIn(email: $email, password: $password)
+	}
+`;
+
 const NEW_NOTE = gql`
 	mutation newNote($content: String!) {
 		newNote(content: $content) {
@@ -59,4 +65,11 @@ const TOGGLE_FAVORITE = gql`
 	}
 `;
 
-export {SIGNUP_USER, NEW_NOTE, EDIT_NOTE, DELETE_NOTE, TOGGLE_FAVORITE};
+export {
+	SIGNUP_USER,
+	SIGNIN_USER,
+	NEW_NOTE,
+	EDIT_NOTE,
+	DELETE_NOTE,
+	TOGGLE_FAVORITE,
+};
