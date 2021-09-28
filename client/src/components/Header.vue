@@ -74,7 +74,6 @@ export default {
 			this.$apollo.provider.defaultClient.cache.writeData({
 				data: {isLoggedIn: false},
 			});
-			console.log(this.$apollo.provider.defaultClient.cache);
 			if (this.$route.name != "home") this.$router.push({name: "home"});
 		},
 	},

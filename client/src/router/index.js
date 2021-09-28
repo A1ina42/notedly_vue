@@ -6,6 +6,7 @@ import MyNotes from "../views/MyNotes.vue";
 import NotePage from "../views/Note.vue";
 import SignUp from "../views/SignUp.vue";
 import SignIn from "../views/SignIn.vue";
+import NewNote from "../views/New.vue";
 
 Vue.use(VueRouter);
 
@@ -14,12 +15,16 @@ const routes = [
 		path: "/",
 		name: "home",
 		component: Home,
+		meta: {
+			requiresAuth: false,
+		},
 	},
 	{
 		path: "/favorites",
 		name: "favorites",
 		component: Favorites,
 		meta: {
+			requiresAuth: true,
 			title: "Favorites - Notedly",
 		},
 	},
@@ -28,6 +33,7 @@ const routes = [
 		name: "mynotes",
 		component: MyNotes,
 		meta: {
+			requiresAuth: true,
 			title: "My Notes - Notedly",
 		},
 	},
@@ -35,12 +41,16 @@ const routes = [
 		path: "/note/:id",
 		name: "notepage",
 		component: NotePage,
+		meta: {
+			requiresAuth: true,
+		},
 	},
 	{
 		path: "/signup",
 		name: "signup",
 		component: SignUp,
 		meta: {
+			requiresAuth: false,
 			title: "Sign Up - Notedly",
 		},
 	},
@@ -49,7 +59,17 @@ const routes = [
 		name: "signin",
 		component: SignIn,
 		meta: {
+			requiresAuth: false,
 			title: "Sign In - Notedly",
+		},
+	},
+	{
+		path: "/new",
+		name: "newnote",
+		component: NewNote,
+		meta: {
+			requiresAuth: true,
+			title: "New Note - Notedly",
 		},
 	},
 ];
@@ -65,6 +85,14 @@ router.afterEach((to, from) => {
 	Vue.nextTick(() => {
 		document.title = to.meta.title || DEFAULT_TITLE;
 	});
+});
+
+router.beforeEach((to, from, next) => {
+	if (to.matched.some((record) => record.meta.requiresAuth)) {
+		next("/");
+	} else {
+		next();
+	}
 });
 
 export default router;
